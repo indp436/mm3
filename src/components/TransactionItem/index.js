@@ -2,17 +2,18 @@ import './index.css'
 
 const CreateTransaction = props => {
   const {details, onDeleteTransaction} = props
-  const {title, id, type = 'Income', amount} = details
+  const {title, id, amount, type} = details
 
   const deleteButtonClicked = () => {
     onDeleteTransaction(id, type, amount)
   }
+  const displayingText = type === 'INCOME' ? 'Income' : 'Expenses'
 
   return (
-    <li className="transaction-bar">
+    <ul className="transaction-bar">
       <p className="transaction-title">{title}</p>
       <p className="transaction-title">{amount}</p>
-      <p className="transaction-title">{type}</p>
+      <p className="transaction-title">{displayingText}</p>
       <button
         className="delete"
         testid={id}
@@ -25,7 +26,7 @@ const CreateTransaction = props => {
           className="delete-icon"
         />
       </button>
-    </li>
+    </ul>
   )
 }
 

@@ -51,15 +51,14 @@ class MoneyManager extends Component {
   state = {
     title: '',
     amount: '',
-    type: 'Income',
+    type: transactionTypeOptions[0].optionId,
     totalBalance: cardDetailsList[0].initialBalance,
     totalIncome: cardDetailsList[1].initialIncome,
     totalExpenses: cardDetailsList[2].initialExpenses,
     transactionsList: initialList,
   }
 
-  onAddTransaction = event => {
-    event.preventDefault()
+  onAddTransaction = () => {
     const {title, amount, type} = this.state
     const newTransaction = {
       id: uuidv4(),
@@ -72,16 +71,16 @@ class MoneyManager extends Component {
       transactionsList: [...prevState.transactionsList, newTransaction],
       title: '',
       amount: '',
-      type: 'Income',
+      type: transactionTypeOptions[0].optionId,
     }))
 
-    if (type === 'Income') {
+    if (type === 'INCOME') {
       this.setState(prevState => ({
         totalIncome: parseInt(prevState.totalIncome) + parseInt(amount),
       }))
     }
 
-    if (type === 'Expenses') {
+    if (type === 'EXPENSES') {
       this.setState(prevState => ({
         totalExpenses: parseInt(prevState.totalExpenses) + parseInt(amount),
       }))
@@ -112,13 +111,13 @@ class MoneyManager extends Component {
       ),
     }))
 
-    if (type === 'Income') {
+    if (type === 'INCOME') {
       this.setState(prevState => ({
         totalIncome: parseInt(prevState.totalIncome) - parseInt(amount),
       }))
     }
 
-    if (type === 'Expenses') {
+    if (type === 'EXPENSES') {
       this.setState(prevState => ({
         totalExpenses: parseInt(prevState.totalExpenses) - parseInt(amount),
       }))
@@ -213,10 +212,12 @@ class MoneyManager extends Component {
               onChange={this.onChangeSelection}
               value={type}
             >
-              <option select="true" value="Income">
-                Income
+              <option value={transactionTypeOptions[0].optionId}>
+                {transactionTypeOptions[0].displayText}
               </option>
-              <option value="Expenses">Expenses</option>
+              <option value={transactionTypeOptions[1].optionId}>
+                {transactionTypeOptions[1].displayText}
+              </option>
             </select>
 
             <button
@@ -230,12 +231,14 @@ class MoneyManager extends Component {
 
           <div className="history-container">
             <h4 className="AddTransaction">History</h4>
-            <ul className="title-amount-type-container">
-              <div className="title-amount-type-container-box">
-                <p className="amount-parts">Title</p>
-                <p className="amount-parts">Amount</p>
-                <p className="amount-parts">Type</p>
-              </div>
+
+            <div className="title-amount-type-container-box">
+              <p className="amount-parts">Title</p>
+              <p className="amount-parts">Amount</p>
+              <p className="amount-parts">Type</p>
+            </div>
+
+            <div className="title-amount-type-container">
               {transactionsList.map(each => (
                 <CreateTransaction
                   details={each}
@@ -243,7 +246,7 @@ class MoneyManager extends Component {
                   onDeleteTransaction={this.onDeleteTransaction}
                 />
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
