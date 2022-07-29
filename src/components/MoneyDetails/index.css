@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+  border: 0;
+  margin: 0;
+}
+.green {
+  background-color: #ecfccb;
+}
+.blue {
+  background-color: #cffafe;
+}
+.violet {
+  background-color: #ede9fe;
+}
+.money-card {
+  list-style: none;
+  display: flex;
+  height: 80px;
+  width: 200px;
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+.money-card-image {
+  height: 40px;
+  width: 40px;
+}
+.money-card-details {
+  margin-left: 20px;
+}
+.money-card-type {
+  font-size: 14px;
+  font-weight: 500;
+  color: #7e858e;
+}
+.money-card-balance {
+  font-size: 14px;
+  font-weight: 500;
+  color: #7e858e;
+}

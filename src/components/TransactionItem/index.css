@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.transaction-bar {
+  display: flex;
+  border: 1px solid #d7dfe9;
+  margin-right: 20px;
+  margin-left: 20px;
+  height: 30px;
+  padding-left: 0;
+  list-style: none;
+  justify-content: space-evenly;
+  padding-top: 5px;
+}
+.delete-icon {
+  height: 18px;
+  width: 18px;
+  margin-top: 3px;
+}
+.transaction-title {
+  font-size: 15px;
+  font-weight: 400;
+  color: #475569;
+  min-width: 70px;
+  max-width: 70px;
+}
