@@ -26,3 +26,8 @@
   min-width: 70px;
   max-width: 70px;
 }
+.delete {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+}

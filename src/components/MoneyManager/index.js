@@ -34,7 +34,7 @@ const cardDetailsList = [
   },
 ]
 
-/* const transactionTypeOptions = [
+const transactionTypeOptions = [
   {
     optionId: 'INCOME',
     displayText: 'Income',
@@ -43,11 +43,9 @@ const cardDetailsList = [
     optionId: 'EXPENSES',
     displayText: 'Expenses',
   },
-] */
-
-const initialList = [
-  {id: uuidv4(), title: 'salary', amount: 60000, type: 'Income'},
 ]
+
+const initialList = []
 
 class MoneyManager extends Component {
   state = {
@@ -107,6 +105,31 @@ class MoneyManager extends Component {
     this.setState({type: event.target.value})
   }
 
+  onDeleteTransaction = (id, type, amount) => {
+    this.setState(prevState => ({
+      transactionsList: prevState.transactionsList.filter(
+        each => id !== each.id,
+      ),
+    }))
+
+    if (type === 'Income') {
+      this.setState(prevState => ({
+        totalIncome: parseInt(prevState.totalIncome) - parseInt(amount),
+      }))
+    }
+
+    if (type === 'Expenses') {
+      this.setState(prevState => ({
+        totalExpenses: parseInt(prevState.totalExpenses) - parseInt(amount),
+      }))
+    }
+
+    this.setState(prevState => ({
+      totalBalance:
+        parseInt(prevState.totalIncome) - parseInt(prevState.totalExpenses),
+    }))
+  }
+
   render() {
     const {
       title,
@@ -133,6 +156,7 @@ class MoneyManager extends Component {
               details={cardDetailsList[0]}
               key={cardDetailsList[0].alt}
               totalValue={totalBalance}
+              testid="balanceAmount"
             />
           </div>
           <div className="total-income-container">
@@ -140,6 +164,7 @@ class MoneyManager extends Component {
               details={cardDetailsList[1]}
               key={cardDetailsList[1].alt}
               totalValue={totalIncome}
+              testid="incomeAmount"
             />
           </div>
           <div className="total-expenses-container">
@@ -147,6 +172,7 @@ class MoneyManager extends Component {
               details={cardDetailsList[2]}
               key={cardDetailsList[2].alt}
               totalValue={totalExpenses}
+              testid="expensesAmount"
             />
           </div>
         </ul>
@@ -187,12 +213,10 @@ class MoneyManager extends Component {
               onChange={this.onChangeSelection}
               value={type}
             >
-              <option select="true" value="Income" optionid="INCOME">
+              <option select="true" value="Income">
                 Income
               </option>
-              <option value="Expenses" optionid="EXPENSES">
-                Expenses
-              </option>
+              <option value="Expenses">Expenses</option>
             </select>
 
             <button
@@ -213,7 +237,11 @@ class MoneyManager extends Component {
                 <p className="amount-parts">Type</p>
               </div>
               {transactionsList.map(each => (
-                <CreateTransaction details={each} key={each.id} />
+                <CreateTransaction
+                  details={each}
+                  key={each.id}
+                  onDeleteTransaction={this.onDeleteTransaction}
+                />
               ))}
             </ul>
           </div>

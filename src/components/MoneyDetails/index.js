@@ -1,7 +1,7 @@
 import './index.css'
 
 const CreateCard = props => {
-  const {details, totalValue} = props
+  const {details, totalValue, testid} = props
   const {imgUrl, moneyType, alt, bgColor} = details
 
   return (
@@ -11,7 +11,9 @@ const CreateCard = props => {
       </div>
       <div className="money-card-details">
         <p className="money-card-type">{moneyType}</p>
-        <p className="money-card-balance">Rs. {totalValue}</p>
+        <p className="money-card-balance" testid={testid}>
+          Rs. {totalValue}
+        </p>
       </div>
     </li>
   )
